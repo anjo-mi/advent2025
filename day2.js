@@ -16,34 +16,34 @@ class DimmaDrome{
   };
 
   checkDrome(num){
-    // num = num.toString();
-    // if (num.length <= 1) return true;
-    // for (let i = 1; i <= num.length / 2; i++){
-    //   const seg = num.slice(0,i);
-    //   let segWorks = true;
-    //   for (let j = i, k = seg.length ; j + k <= num.length ; j += k){
-    //     if (num.length % seg.length){
-    //       segWorks = false;
-    //       break;
-    //     }
-    //     const nextSeg = num.slice(j, j+k)
-    //     // console.log({seg,nextSeg,num,i,j,k}, this.dromics)
-    //     if (seg !== nextSeg) {
-    //       segWorks = false
-    //       break;
-    //     };
-    //   }
-    //   if (segWorks) {
-    //     this.dromics.push(+num);
-    //     break;
-    //   }
-    // }
     num = num.toString();
-    if (num.length % 2) return;
-    const mid = Math.floor(num.length / 2);
-    const front = num.slice(0,mid);
-    const back = num.slice(mid);
-    if (front === back) this.dromics.push(+num);
+    if (num.length <= 1) return true;
+    for (let i = 1; i <= num.length / 2; i++){
+      const seg = num.slice(0,i);
+      let segWorks = true;
+      for (let j = i, k = seg.length ; j + k <= num.length ; j += k){
+        if (num.length % seg.length){
+          segWorks = false;
+          break;
+        }
+        const nextSeg = num.slice(j, j+k)
+        // console.log({seg,nextSeg,num,i,j,k}, this.dromics)
+        if (seg !== nextSeg) {
+          segWorks = false
+          break;
+        };
+      }
+      if (segWorks) {
+        this.dromics.push(+num);
+        break;
+      }
+    }
+    // num = num.toString();
+    // if (num.length % 2) return;
+    // const mid = Math.floor(num.length / 2);
+    // const front = num.slice(0,mid);
+    // const back = num.slice(mid);
+    // if (front === back) this.dromics.push(+num);
   };
 
   getAndSumDromes(){
