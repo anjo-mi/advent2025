@@ -200,11 +200,11 @@ let arr = ['59665466545887555483545919466574658898597659696577568894476696669798
 '9454527354735656537472876857246747554763445832354347645346455852255465346827664554778667358636366668'];
 
 
-// arr = 
-// ['987654321111111',
-// '811111111111119',
-// '234234234234278',
-// '818181911112111']
+arr = 
+['987654321111111',
+'811111111111119',
+'234234234234278',
+'818181911112111']
 
 class Duragizer{
   constructor(arr){
@@ -212,20 +212,55 @@ class Duragizer{
     this.joltage = 0;
   }
 
-  findMax(bank, max = -Infinity){
-    if (bank.length < 2) return max;
-    bank = bank.split('');
-    const first = bank[0];
-    const rest = bank.slice(1);
-    for (let i = 0; i < rest.length ; i++){
-      const num = Number(first + rest[i]);
-      max = Math.max(max,num);
-    }
-    return this.findMax(rest.join(''),max);
+  // findMax(bank, max = -Infinity){
+  //   if (bank.length < 2) return max;
+  //   bank = bank.split('');
+  //   const first = bank[0];
+  //   const rest = bank.slice(1);
+  //   for (let i = 0; i < rest.length ; i++){
+  //     const num = Number(first + rest[i]);
+  //     max = Math.max(max,num);
+  //   }
+  //   return this.findMax(rest.join(''),max);
+  // }
+
+  findMax(bank, max = -Infinity ,a=0,b=1,c=2,d=3,e=4,f=5,g=6,h=7,i=8,j=9,k=10,l=11, memo ={}){
+    const key = a+';'+b+';'+c+';'+d+';'+e+';'+f+';'+g+';'+h+';'+i+';'+j+';'+k+';'+l;
+    if (key in memo) return memo[key];
+    if (l >= bank.length) return max;
+    if (a >= b) return Math.max(max, this.findMax(bank,max,a,b+1,c,d,e,f,g,h,i,j,k,l,memo));
+    if (b >= c) return Math.max(max, this.findMax(bank,max,a,b,c+1,d,e,f,g,h,i,j,k,l,memo));
+    if (c >= d) return Math.max(max, this.findMax(bank,max,a,b,c,d+1,e,f,g,h,i,j,k,l,memo));
+    if (d >= e) return Math.max(max, this.findMax(bank,max,a,b,c,d,e+1,f,g,h,i,j,k,l,memo));
+    if (e >= f) return Math.max(max, this.findMax(bank,max,a,b,c,d,e,f+1,g,h,i,j,k,l,memo));
+    if (f >= g) return Math.max(max, this.findMax(bank,max,a,b,c,d,e,f,g+1,h,i,j,k,l,memo));
+    if (g >= h) return Math.max(max, this.findMax(bank,max,a,b,c,d,e,f,g,h+1,i,j,k,l,memo));
+    if (h >= i) return Math.max(max, this.findMax(bank,max,a,b,c,d,e,f,g,h,i+1,j,k,l,memo));
+    if (i >= j) return Math.max(max, this.findMax(bank,max,a,b,c,d,e,f,g,h,i,j+1,k,l,memo));
+    if (j >= k) return Math.max(max, this.findMax(bank,max,a,b,c,d,e,f,g,h,i,j,k+1,l,memo));
+    if (k >= l) return Math.max(max, this.findMax(bank,max,a,b,c,d,e,f,g,h,i,j,k,l+1,memo));
+    bank = Array.isArray(bank) ? bank : bank.split('');
+    const num = +[ bank[a] , bank[b] , bank[c] , bank[d], bank[e] , bank[f] , bank[g] , bank[h] , bank[i] , bank[j] , bank[k] , bank[l] ].join('');
+    max = Math.max(max,num);
+    return memo[key] = Math.max(max,
+                    this.findMax(bank,max,a+1,b,c,d,e,f,g,h,i,j,k,l,memo),
+                    this.findMax(bank,max,a,b+1,c,d,e,f,g,h,i,j,k,l,memo),
+                    this.findMax(bank,max,a,b,c+1,d,e,f,g,h,i,j,k,l,memo),
+                    this.findMax(bank,max,a,b,c,d+1,e,f,g,h,i,j,k,l,memo),
+                    this.findMax(bank,max,a,b,c,d,e+1,f,g,h,i,j,k,l,memo),
+                    this.findMax(bank,max,a,b,c,d,e,f+1,g,h,i,j,k,l,memo),
+                    this.findMax(bank,max,a,b,c,d,e,f,g+1,h,i,j,k,l,memo),
+                    this.findMax(bank,max,a,b,c,d,e,f,g,h+1,i,j,k,l,memo),
+                    this.findMax(bank,max,a,b,c,d,e,f,g,h,i+1,j,k,l,memo),
+                    this.findMax(bank,max,a,b,c,d,e,f,g,h,i,j+1,k,l,memo),
+                    this.findMax(bank,max,a,b,c,d,e,f,g,h,i,j,k+1,l,memo),
+                    this.findMax(bank,max,a,b,c,d,e,f,g,h,i,j,k,l+1,memo)
+                    );
   }
 
   crankItUp(){
     this.banks.forEach(bank => {
+      console.log(this.joltage)
       this.joltage += this.findMax(bank);
     });
   }
@@ -236,5 +271,7 @@ class Duragizer{
 }
 
 const batthead = new Duragizer(arr);
-console.log(batthead.crankItUp());
+console.log(3121910778619)
+batthead.crankItUp();
+
 console.log(batthead.reportJoltage());
